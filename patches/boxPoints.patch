@@ -1,0 +1,12 @@
+diff --git a/platforms/js/opencv_js.config.py b/platforms/js/opencv_js.config.py
+index 23f26a5..dab6d91 100644
+--- a/platforms/js/opencv_js.config.py
++++ b/platforms/js/opencv_js.config.py
+@@ -30,6 +30,7 @@ imgproc = {
+         'blur',
+         'boundingRect',
+         'boxFilter',
++        'boxPoints',
+         'calcBackProject',
+         'calcHist',
+         'circle',

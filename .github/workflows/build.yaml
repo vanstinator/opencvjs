@@ -1,0 +1,25 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - develop
+      - main
+
+  pull_request:
+    types:
+      - opened
+      - labeled
+      - synchronize
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - run: git clone --branch 4.7.0 --depth 1 https://github.com/opencv/opencv.git
+
+      - run: cd opencv && git apply ../patches/*.patch
+
+      - run: docker run --rm -v $(pwd):/src -u $(id -u):$(id -g) emscripten/emsdk:2.0.26 emcmake python3 ./platforms/js/build_js.py build_wasm --build_wasm --simd
