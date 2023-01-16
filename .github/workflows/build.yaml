@@ -22,4 +22,18 @@ jobs:
 
       - run: cd opencv && git apply ../patches/*.patch
 
+      - run: cd opencv && echo $(pwd)
+      
+      - run: cd opencv && echo $(ls -la)
+
       - run: cd opencv && docker run --rm -v $(pwd):/src -u $(id -u):$(id -g) emscripten/emsdk:2.0.26 emcmake python3 ./platforms/js/build_js.py build_wasm --build_wasm --simd
+      
+      - name: Upload zip to release
+        uses: svenstaro/upload-release-action@2.4.0
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: /home/runner/work/opencvjs/opencvjs/opencv/build_wasm/bin/opencv.js
+          asset_name: opencv_simd.js
+          tag: ${{ github.ref }}
+          overwrite: true
+          prerelease: true
