@@ -22,4 +22,4 @@ jobs:
 
       - run: cd opencv && git apply ../patches/*.patch
 
-      - run: docker run --rm -v $(pwd):/src -u $(id -u):$(id -g) emscripten/emsdk:2.0.26 emcmake python3 ./platforms/js/build_js.py build_wasm --build_wasm --simd
+      - run: cd opencv && docker run --rm -v $(pwd):/src -u $(id -u):$(id -g) emscripten/emsdk:2.0.26 emcmake python3 ./platforms/js/build_js.py build_wasm --build_wasm --simd
